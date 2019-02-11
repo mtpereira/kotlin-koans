@@ -1,5 +1,7 @@
 package ii_collections
 
+import iii_conventions.iterateOverRange
+
 fun example8() {
     val numbers = listOf(1, 3, -4, 2, -11)
 
@@ -10,7 +12,10 @@ fun example8() {
     negative == listOf(-4, -11)
 }
 
+//fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer> = customers.filter { customer -> customer.orders.filter { !it.isDelivered }.size > customer.orders.filter { it.isDelivered }.size }.toSet()
 fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer> {
-    // Return customers who have more undelivered orders than delivered
-    todoCollectionTask()
+    return customers.filter { customer ->
+        val (delivered, undelivered) = customer.orders.partition { it.isDelivered }
+        undelivered.size> delivered.size
+    }.toSet()
 }
